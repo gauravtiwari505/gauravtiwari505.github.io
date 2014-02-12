@@ -22,6 +22,7 @@
   			<link rel="stylesheet" href="css/mouse_position.css" />
   			<link rel="stylesheet" href="css/Control.MiniMap.css" />
   			<link rel="stylesheet" href="css/fullscreen.css" />
+  			<link rel="stylesheet" href="css/L.Control.Sidebar.css" />
     
 	<style>
 	button{
@@ -49,6 +50,23 @@ button{background-color:rgba(255,204,0,0.8);}
  </head>
 
 <body>
+	<div id="sidebar">
+        <h1>The Changing Population Density of Indian States</h1>
+
+        
+
+        
+
+        <p class="lorem">India is projected to be the world's most populous country by 2025, surpassing China, its population reaching 1.6 billion by 2050. Its population growth rate is 1.41%, ranking 102nd in the world in 2010.Indian population reached the billion mark in 2000.India occupies 2.4% of the world's land area and supports over 17.5% of the world's population. Per the 2001 census, 72.2% of the population lives in about 638,000 villages and the remaining 27.8% lives in more than 5,100 towns and over 380 urban agglomerations.</p>
+
+        <p class="lorem">In such a scenario, identifying and thereby analyzing the most densely populated states and thereby cities is a key area to be studied more upon. Over the last 12 years, India has seen a rapid urbanization and industrialization with people moving across the country in search of job, better living and a prosperous lives.</p>
+        
+        <p class="lorem">Hence analyzing the most densely populated states and cities over the years and finding possible factors behind this trend can be a key tool in planning the resource allocation and key cities to focus on in future development.</p>
+
+        <p class="lorem">This GeoMap application is a humble beginning to implement the above mentioned idea. It shows the time series increase population density of all the 35 Indian States from 1994 to 2012. The map also incorporates multiple features such as one click display of all the most densely populated city clustered on a zoom level basis to enhance map visibility, a Geocoder search bar which can automatically direct you to any location you want to view and many more.. </p>
+        <p class="lorem">Explore to find out the other functions as well !!!! </p>
+    </div>
+
 
 <div id="map" style="width: 100% ; height:100%"></div>
 <div id= slider>
@@ -69,6 +87,7 @@ button{background-color:rgba(255,204,0,0.8);}
 	<script src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js"></script>
 	<script src="js/mouse_position.js"></script>
 	<script src="js/Control.MiniMap.js" type="text/javascript"></script>
+	<script src="js/L.Control.Sidebar.js"></script>
 	<script>
 		var style = {color:'green', opacity: 1.0, fillOpacity: 1.0, weight: 2, clickable: true};
     L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';
@@ -157,6 +176,18 @@ var markers;
 			height:200,
 			zoomAnimation: true,
 		} ).addTo(map);
+	//sidebar code
+ var sidebar = L.control.sidebar('sidebar', {
+            closeButton: true,
+            position: 'right'
+        });
+        map.addControl(sidebar);
+    setTimeout(function () {
+            sidebar.show();
+        }, 500);
+    map.on('click', function () {
+            sidebar.hide();
+        })
 </script>
 </body>
 </html>
