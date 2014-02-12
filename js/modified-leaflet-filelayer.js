@@ -69,7 +69,7 @@ var FileLoader = L.Class.extend({
 //create function on map
 L.Control.FileLayerLoad = L.Control.extend({
     statics: {
-        TITLE: 'Load local file (GPX, KML, GeoJSON)',
+        TITLE: 'Click to Add & display Local GeoJson, KML or GPX file ',
         LABEL: '&#8965;'
     },
     options: {
