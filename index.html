@@ -1,0 +1,147 @@
+<html>
+<head>
+	<title> Leaflet Learning</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/leaflet.css" />
+			<link rel="stylesheet" href="css/MarkerCluster.css" />
+			<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+    		<!--[if lte IE 8]><link rel="stylesheet" href="../dist/MarkerCluster.Default.ie.css" /><![endif]-->
+			<link rel="stylesheet" href="css/leaflet.label.css" />
+			<link rel="stylesheet" href="css/screen.css" />
+			<link rel="stylesheet" href="css/screen.css" />
+			<link rel="stylesheet" href="css/MarkerCluster.css" />
+			<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+			<script src="js/simple-slider.js"></script>
+			<link href="css/simple-slider.css" rel="stylesheet" type="text/css" />
+			<link href="css/simple-slider-volume.css" rel="stylesheet" type="text/css" /> 
+			<link href="css/font-awesome.css" rel="stylesheet" type="text/css" /> 
+			<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+			<link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css"/>
+  
+    
+	<style>
+	button{
+	color:#08233e;
+	font:2.4em Futura, ‘Century Gothic’, AppleGothic, sans-serif;
+	font-size:100%;
+	padding:14px;
+	background-color:rgba(255,204,0,1);
+	border:1px solid #ffcc00;
+	border-radius:10px;
+	border-radius:10px;
+	border-radius:10px;
+	border-bottom:1px solid #9f9f9f;
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+	cursor:pointer;
+	display:block;
+	width:30%;
+}
+
+button{background-color:rgba(255,204,0,0.8);}
+	</style>
+
+ </head>
+
+<body>
+
+<div id="map" style="width: 100% ; height:100%"></div>
+<div id= slider>
+<input type="text" data-slider="true" data-slider-values="1994,1995,1996,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2012" data-slider-equal-steps="true" data-slider-snap="true">
+</div>
+<div id= button>
+<button type="button" onclick="my_func()"> Click to see the most densely populated cities</button>
+</div>
+    <script src="js/leaflet-src.js"> </script>
+	 <script type="text/javascript" src="data/india.js"></script>
+  <script type="text/javascript" src="js/india.js"></script>	
+	<script type="text/javascript" src="js/modified-leaflet-filelayer.js"></script>
+	<script src="js/Control.OSMGeocoder.js"> </script>
+	<script src="js/leaflet.markercluster-src.js"></script>
+	<script src="js/dense_cities.js"></script>
+	<script src="js/leaflet.markercluster.js"></script>
+	<script src="js/leaflet-dvf.js"></script>
+	<script src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js"></script>
+	<script>
+		var style = {color:'green', opacity: 1.0, fillOpacity: 1.0, weight: 2, clickable: true};
+    L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';
+	var overLays=L.Control.fileLayerLoad(layersControl,{
+			fitBounds: true,
+           layerOptions :{style: function(feature) {
+			return feature.properties.style},
+		onEachFeature: function onEachFeature(feature, layer) {
+		if (feature.properties && feature.properties.capital) {
+		layer.bindPopup(feature.properties.capital);
+		}
+		},               
+        }
+        }).addTo(map);
+	L.control.layers(baseLayers).addTo(map);
+
+	// Leaflet.Draw Feature added here onwards
+	var drawnItems = new L.FeatureGroup();
+		map.addLayer(drawnItems);
+	var drawControl = new L.Control.Draw({edit: {
+		featureGroup: drawnItems}
+		},
+		{draw: {
+			polygon: {
+shapeOptions: {
+color: 'purple'
+},
+},
+polyline: {
+shapeOptions: {
+color: 'red'
+},
+},
+rect: {
+shapeOptions: {
+color: 'green'
+},
+},
+circle: {
+shapeOptions: {
+color: 'steelblue'
+},
+},
+		}}
+		);
+	map.addControl(drawControl);
+	map.on('draw:created', function (e) {
+	var type = e.layerType,
+	layer = e.layer;
+	drawnItems.addLayer(layer);
+		});
+		</script>
+<script>
+	var osmGeocoder = new L.Control.OSMGeocoder(
+		{
+	position: "topright",
+	collapsed: "true",
+	text: "Type in address to find",
+	bounds: null
+});
+map.addControl(osmGeocoder);
+var marker;
+var markers;
+	function my_func () {
+				markers = L.markerClusterGroup();
+		markers.clearLayers();
+		for (var i = 0; i < cities.length; i++) {
+			var a = cities[i];
+			var title = a[0];
+			marker = L.marker(new L.LatLng(a[1], a[2]), { title: title });
+			marker.bindPopup(title);
+			markers.addLayer(marker);
+		}
+
+		map.addLayer(markers);
+
+		}
+</script>
+</body>
+</html>
