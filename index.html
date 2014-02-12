@@ -19,7 +19,7 @@
 			<link href="css/font-awesome.css" rel="stylesheet" type="text/css" /> 
 			<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 			<link rel="stylesheet" href="http://leaflet.github.io/Leaflet.draw/leaflet.draw.css"/>
-  
+  			<link rel="stylesheet" href="css/mouse_position.css" />
     
 	<style>
 	button{
@@ -65,6 +65,7 @@ button{background-color:rgba(255,204,0,0.8);}
 	<script src="js/leaflet.markercluster.js"></script>
 	<script src="js/leaflet-dvf.js"></script>
 	<script src="http://leaflet.github.io/Leaflet.draw/leaflet.draw.js"></script>
+	<script src="js/mouse_position.js"></script>
 	<script>
 		var style = {color:'green', opacity: 1.0, fillOpacity: 1.0, weight: 2, clickable: true};
     L.Control.FileLayerLoad.LABEL = '<i class="fa fa-folder-open"></i>';
@@ -142,6 +143,11 @@ var markers;
 		map.addLayer(markers);
 
 		}
+	L.control.mousePosition({
+		separator: " & ",
+	emptystring: "Hover over the map",
+	prefix: "Lat & Long :"
+}).addTo(map);
 </script>
 </body>
 </html>
