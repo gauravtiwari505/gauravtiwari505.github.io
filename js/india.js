@@ -14,6 +14,12 @@ var nightMap = L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z
                 styleId: 120528,
                 maxZoom:19
             });
+     var dayMap1 = L.tileLayer('http://{s}.tile.cloudmade.com/915fd2f6a59f42fd95d40925b7a8ee2c/118624/256/{z}/{x}/{y}.png', {
+                attribution :'Map data &copy 2011 OpenStreetMap contributors, Imagery &copy 2011 CloudMade',
+                key : '915fd2f6a59f42fd95d40925b7a8ee2c',
+                styleId: 120528,
+                maxZoom:19
+            });
     
     var map = L.map('map',{
       layers: [cloudmade]
